@@ -3,7 +3,7 @@ import { Text, View, Image, Linking } from 'react-native';
 import { Card, CardSection, Button } from './common/index';
 
 const Product = ({ product }) => {
-  const { name, vendor, image, url } = product;
+  const { name, vendor, image, url, price } = product;
   const {
     thumbnailStyle,
     headerContentStyle,
