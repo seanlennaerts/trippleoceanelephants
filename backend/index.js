@@ -18,6 +18,7 @@ app.get('/search', (req, res) => {
 	sem3.products.get_products(
 		function(err, products) {
 			if (err) {
+				// TODO :: it only takes in one query term!!
 				console.log("Couldn't execute request: get " + req.query.term);
 				return;
 			}
