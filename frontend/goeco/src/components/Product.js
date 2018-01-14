@@ -3,7 +3,7 @@ import { Text, View, Image, Linking } from 'react-native';
 import { Card, CardSection, Button } from './common/index';
 
 const Product = ({ product }) => {
-  const { name, vendor, image, url, price } = product;
+  const { vendor, name, image, url, price } = product;
   const {
     thumbnailStyle,
     headerContentStyle,
@@ -11,7 +11,7 @@ const Product = ({ product }) => {
     headerTextStyle,
     imageStyle
   } = styles;
-
+  console.log(product);
   return (
     // <TouchableOpacity onPress={onPress} style={buttonStyle}>
     //   <Text style={textStyle}>
@@ -31,19 +31,20 @@ const Product = ({ product }) => {
         <View style={thumbnailContainerStyle}>
           <Image
             style={thumbnailStyle}
-            source={{ uri: image }}
+            source={{ uri: 'https://sem3-idn.s3-website-us-east-1.amazonaws.com/147888bc7ff597bbd1073b2e94627f95,0.jpg' }}
           />
         </View>
         <View style={headerContentStyle}>
           <Text style={headerTextStyle}>{name}</Text>
-          <Text>{vendor}</Text>
+          <Text>${price}</Text>
+          {/* <Text>{vendor}</Text> */}
         </View>
 
       </CardSection>
 
       <CardSection>
         <Button onPress={() => Linking.openURL(url)}>
-          Buy Now
+          Buy from {vendor}
         </Button>
       </CardSection>
     </Card>

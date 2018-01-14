@@ -9,11 +9,11 @@ class Search extends Component {
   state = { search: '', products: [], camera: false, qrcode: '' };
 
   searchSubmit() {
-    const request = 'https://warm-retreat-84975.herokuapp.com/search?term=' + this.state.search;
+    const request = 'https://enigmatic-fjord-43920.herokuapp.com/search?term=' + this.state.search;
     console.log(request);
 
     axios.get(request)
-      .then(response => this.setState({ products: response.data.results }))
+      .then(response => this.setState({ products: response.data }))
       // .then(response => console.log(response))
       .catch(error => console.log(error));
   }
@@ -56,17 +56,17 @@ class Search extends Component {
       case true:
         return (
           <View  style={styles.container}>
-                <Camera
-                    style={styles.preview}
-                    onBarCodeRead={this.onBarCodeRead}
-                    ref={cam => this.camera = cam}
-                    aspect={Camera.constants.Aspect.fill}
-                    >
-                        <Text style={{
-                            backgroundColor: 'white'
-                        }}>{this.state.qrcode}</Text>
-                    </Camera>
-            </View>
+               <Camera
+                   style={styles.preview}
+                   onBarCodeRead={this.onBarCodeRead}
+                   ref={cam => this.camera = cam}
+                   aspect={Camera.constants.Aspect.fill}
+                   >
+                       <Text style={{
+                           backgroundColor: 'white'
+                       }}>{this.state.qrcode}</Text>
+                   </Camera>
+           </View>
         );
     }
   }
