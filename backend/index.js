@@ -11,7 +11,7 @@ app.get('/search', (req, res) => {
 	var sem3 = require('semantics3-node')(api_key,api_secret);
 
 	// Build the request
-	// TODO :: it only takes in one query term  
+	// TODO :: it only takes in one query term
 	sem3.products.products_field( "search", req.query.term);
 
 
@@ -32,8 +32,9 @@ app.get('/search', (req, res) => {
 					var url = siteDetails[j].url;
 					if (url.includes("www.amazon.com") || url.includes("www.walmart.com")) {
 						var condensedResult = new Object();
-						var productName = results[i].name;
-						condensedResult.name = productName;
+						condensedResult.name = results[i].name;
+						condensedResult.price = results[i].price;
+						condensedResult.brand = results[i].brand;
 						condensedResults.push(condensedResult);
 						condensedResult.url = url;
 
