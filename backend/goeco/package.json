@@ -1,0 +1,19 @@
+{
+  "name": "goeco",
+  "version": "1.0.0",
+  "description": "find sustainable alternatives for your favorite products",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seanlennaerts/trippleoceanelephants.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seanlennaerts/trippleoceanelephants/issues"
+  },
+  "homepage": "https://github.com/seanlennaerts/trippleoceanelephants#readme"
+}
