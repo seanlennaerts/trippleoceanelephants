@@ -26,7 +26,6 @@ app.get('/search', (req, res) => {
 			var condensedResults = [];
 			var results = JSON.parse(products).results;
 			for (var i = 0; i < results.length; i++) {
-				var isWalmartSearch = false;
 				var siteDetails = results[i].sitedetails;
 				for (var j = 0; j < siteDetails.length; j++) {
 					var url = siteDetails[j].url;
@@ -37,6 +36,8 @@ app.get('/search', (req, res) => {
 						condensedResult.brand = results[i].brand;
 						condensedResults.push(condensedResult);
 						condensedResult.url = url;
+						condensedResult.image = results[i].images[0];
+
 
 						if (url.includes("www.amazon.com")){
 							condensedResult.vendor = "Amazon";
