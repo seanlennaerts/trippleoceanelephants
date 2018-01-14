@@ -17,7 +17,11 @@
   },
   "homepage": "https://github.com/seanlennaerts/trippleoceanelephants#readme",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.2",
     "gulp-typescript": "^4.0.0-alpha.1",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
     "typescript": "^2.6.2"
   }
 }
