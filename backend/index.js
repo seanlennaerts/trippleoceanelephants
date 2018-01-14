@@ -11,6 +11,7 @@ app.get('/search', (req, res) => {
 	var sem3 = require('semantics3-node')(api_key,api_secret);
 
 	// Build the request
+	// TODO :: it only takes in one query term  
 	sem3.products.products_field( "search", req.query.term);
 
 
@@ -18,7 +19,6 @@ app.get('/search', (req, res) => {
 	sem3.products.get_products(
 		function(err, products) {
 			if (err) {
-				// TODO :: it only takes in one query term!!
 				console.log("Couldn't execute request: get " + req.query.term);
 				return;
 			}
@@ -26,26 +26,28 @@ app.get('/search', (req, res) => {
 			var condensedResults = [];
 			var results = JSON.parse(products).results;
 			for (var i = 0; i < results.length; i++) {
-				var isAmazonSearch = false;
+				var isWalmartSearch = false;
 				var siteDetails = results[i].sitedetails;
 				for (var j = 0; j < siteDetails.length; j++) {
 					var url = siteDetails[j].url;
-					if (url.includes("www.amazon.com")) {
-						isAmazonSearch = true;
+					if (url.includes("www.amazon.com") || url.includes("www.walmart.com")) {
 						var condensedResult = new Object();
+						var productName = results[i].name;
+						condensedResult.name = productName;
+						condensedResults.push(condensedResult);
 						condensedResult.url = url;
+
+						if (url.includes("www.amazon.com")){
+							condensedResult.vendor = "Amazon";
+						} else {
+							condensedResult.vendor = "Walmart";
+						}
 					}
-				}
-				// get product name
-				if (isAmazonSearch) {
-					var productName = results[i].name;
-					condensedResult.name = productName;
-					condensedResults.push(condensedResult);
+
 				}
 			}
 			//console.log("Condensed Results" + JSON.stringify(condensedResults));
-			//debugger;
-		res.json(JSON.parse(condensedResults));
+			res.json(condensedResults);
 		}
 	);
 	// debugger;
