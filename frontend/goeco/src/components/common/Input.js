@@ -7,7 +7,7 @@ const Input = ({ label, value, onChangeText, placeholder, keyboardType, secureTe
 
   return (
     <View style={containerStyle}>
-      <Text style={labelStyle}>{label}</Text>
+      {/* <Text style={labelStyle}>{label}</Text> */}
       <TextInput
         returnKeyType={returnKeyType}
         clearButtonMode='while-editing'

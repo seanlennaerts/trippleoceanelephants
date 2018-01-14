@@ -8,8 +8,7 @@ export default class App extends Component<{}> {
     return (
       <View>
         <Header headerText="goecogecko"/>
-        <Search />
-        
+        <Search />        
       </View>
     );
   }

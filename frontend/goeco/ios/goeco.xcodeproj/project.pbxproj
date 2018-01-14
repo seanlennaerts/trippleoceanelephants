@@ -1279,6 +1279,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.goecogecko;
 				PRODUCT_NAME = goeco;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1301,6 +1302,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.goecogecko;
 				PRODUCT_NAME = goeco;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
