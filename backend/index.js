@@ -14,6 +14,7 @@ app.get('/search', (req, res) => {
 	// Log request to console
 	console.log('Received request on /search endpoint...');
 	// Build the request
+	// TODO :: it only takes in one query term
 	sem3.products.products_field( "search", req.query.term);
 
 
@@ -21,7 +22,7 @@ app.get('/search', (req, res) => {
 	sem3.products.get_products(
 		function(err, products) {
 			if (err) {
-				console.log("Couldn't execute request: get_products");
+				console.log("Couldn't execute request: get " + req.query.term);
 				return;
 			}
 			var jsonArray = [{"name" : "abc", "url" : "https://www.amazon.com/Fusion-Queen-Stainless-Steel-Bottle/dp/B007P5SMLM/ref=sr_1_2_sspa?s=sporting-goods&ie=UTF8&qid=1515918126&sr=1-2-spons&keywords=eco+bottle&psc=1"}];
@@ -34,6 +35,34 @@ app.get('/search', (req, res) => {
 
 			// View results of the request
 			//console.log( "Results of request:\n" + JSON.stringify( products ) );
+
+			var condensedResults = [];
+			var results = JSON.parse(products).results;
+			for (var i = 0; i < results.length; i++) {
+				var siteDetails = results[i].sitedetails;
+				for (var j = 0; j < siteDetails.length; j++) {
+					var url = siteDetails[j].url;
+					if (url.includes("www.amazon.com") || url.includes("www.walmart.com")) {
+						var condensedResult = new Object();
+						condensedResult.name = results[i].name;
+						condensedResult.price = results[i].price;
+						condensedResult.brand = results[i].brand;
+						condensedResults.push(condensedResult);
+						condensedResult.url = url;
+						condensedResult.image = results[i].images[0];
+
+
+						if (url.includes("www.amazon.com")){
+							condensedResult.vendor = "Amazon";
+						} else {
+							condensedResult.vendor = "Walmart";
+						}
+					}
+
+				}
+			}
+			//console.log("Condensed Results" + JSON.stringify(condensedResults));
+			res.json(condensedResults);
 		}
 	);
 	// debugger;
