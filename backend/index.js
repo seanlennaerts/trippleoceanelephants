@@ -21,9 +21,30 @@ app.get('/search', (req, res) => {
 				console.log("Couldn't execute request: get " + req.query.term);
 				return;
 			}
-			res.json(JSON.parse(products));
-			// View results of the request
-			//console.log( "Results of request:\n" + JSON.stringify( products ) );
+
+			var condensedResults = [];
+			var results = JSON.parse(products).results;
+			for (var i = 0; i < results.length; i++) {
+				var isAmazonSearch = false;
+				var siteDetails = results[i].sitedetails;
+				for (var j = 0; j < siteDetails.length; j++) {
+					var url = siteDetails[j].url;
+					if (url.includes("www.amazon.com")) {
+						isAmazonSearch = true;
+						var condensedResult = new Object();
+						condensedResult.url = url;
+					}
+				}
+				// get product name
+				if (isAmazonSearch) {
+					var productName = results[i].name;
+					condensedResult.name = productName;
+					condensedResults.push(condensedResult);
+				}
+			}
+			//console.log("Condensed Results" + JSON.stringify(condensedResults));
+			//debugger;
+		res.json(JSON.parse(condensedResults));
 		}
 	);
 	// debugger;
