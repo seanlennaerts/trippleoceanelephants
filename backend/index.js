@@ -18,7 +18,7 @@ app.get('/search', (req, res) => {
 	sem3.products.get_products(
 		function(err, products) {
 			if (err) {
-				console.log("Couldn't execute request: get_products");
+				console.log("Couldn't execute request: get " + req.query.term);
 				return;
 			}
 			res.json(JSON.parse(products));
