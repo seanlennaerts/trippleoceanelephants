@@ -17,12 +17,12 @@
   },
   "homepage": "https://github.com/seanlennaerts/trippleoceanelephants#readme",
   "dependencies": {
+    "amazon-product-api": "^0.4.4",
     "cheerio": "^1.0.0-rc.2",
+    "encodeurl": "^1.0.1",
     "express": "^4.16.2",
-    "gulp-typescript": "^4.0.0-alpha.1",
     "request": "^2.83.0",
-    "request-promise": "^4.2.2",
-    "semantics3-node": "0.0.3",
-    "typescript": "^2.6.2"
+    "request-promise-native": "^1.0.5",
+    "semantics3-node": "0.0.3"
   }
 }
