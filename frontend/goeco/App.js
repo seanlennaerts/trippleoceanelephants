@@ -37,7 +37,7 @@ export default class App extends Component<{}> {
       return (
         <View style={styles.container}>
           <View style={styles.content}>
-          {/* <Header headerText="goecogecko"/> */}
+          <Header headerText="goecogecko"/>
           <Search />
           </View>
           <View style={styles.preview}>

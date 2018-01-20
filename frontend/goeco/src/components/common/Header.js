@@ -2,17 +2,14 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-// make component
 const Header = (props) => {
   const { textStyle, viewStyle } = styles;
-  // destructuring to avoid duplicate references to styles object
-  // avoiding saying styles.viewStyle and styles.textStyle
 
   return (
     <View style={viewStyle}>
       <Text style={textStyle}>{props.headerText}</Text>
     </View>
-  ); // textStyle in brackets is prop (property)
+  );
 };
 
 const styles = {
@@ -26,18 +23,11 @@ const styles = {
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     elevation: 2,
-    // position: 'relative'
-    flex: 1,
+    position: 'relative'
   },
   textStyle: {
     fontSize: 20
   }
 };
-// make component available to other parts of the app
-export { Header };
 
-/* NOTES:
-flexbox:
-justifyContent is for vertical placement
-alignItems is for horizontal placement
-*/
+export { Header };
