@@ -53,7 +53,7 @@ var formatQueryParams = function (query, method, credentials) {
     params = setDefaultParams(params, {
       SearchIndex: 'All',
       Condition: 'All',
-      ResponseGroup: 'ItemAttributes',
+      ResponseGroup: 'ItemAttributes, EditorialReview, Reviews, Images',
       IdType: 'ASIN',
       IncludeReviewsSummary: 'True',
       TruncateReviewsAt: '1000',
@@ -105,8 +105,8 @@ var generateQueryString = function (query, method, credentials) {
 
   var signature = encodeURIComponent(generateSignature('GET\n' + domain + '\n/onca/xml\n' + unsignedString, credentials.awsSecret)).replace(/\+/g, '%2B');
   var queryString = 'https://' + domain + '/onca/xml?' + unsignedString + '&Signature=' + signature;
-  debugger;
-  
+  // debugger; // To look at the full query string and use it in PostMan
+
   return queryString;
 };
 

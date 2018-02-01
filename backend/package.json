@@ -23,6 +23,7 @@
     "express": "^4.16.2",
     "request": "^2.83.0",
     "request-promise-native": "^1.0.5",
-    "semantics3-node": "0.0.3"
+    "semantics3-node": "0.0.3",
+    "xml-js": "^1.6.2"
   }
 }

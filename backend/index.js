@@ -3,6 +3,7 @@ const fs = require("fs");
 const app = express();
 const request = require('request-promise-native');
 const cheerio = require('cheerio');
+const convert = require('xml-js')
 // const awscrypto = require('./awscrypto');
 // const amazon = require('amazon-product-api');
 const amazon = require('./amazon-product-api/lib/index.js')
@@ -55,20 +56,58 @@ var client = amazon.createClient({
 });
 
 client.itemSearch({
-  director: 'Quentin Tarantino',
-  actor: 'Samuel L. Jackson',
-  searchIndex: 'DVD',
-  audienceRating: 'R',
-  responseGroup: 'ItemAttributes,Offers,Images'
-}).then(function(results){
-	debugger;
-  console.log(results);
-}).catch(function(err){
+  // director: 'Quentin Tarantino',
+  // actor: 'Samuel L. Jackson',
+  // searchIndex: 'DVD',
+  // audienceRating: 'R',
+  keywords: 'shampoo',
+  responseGroup: 'ItemAttributes'
+}).then( (results) => {
+	return Promise.all( results.map( (item) => {
+    return client.itemLookup({
+      ItemId: item.ASIN[0]
+    })
+  }))
+  // res = convert.xml2js(results, {ignoreComment: true})
+})
+.then( (results) => {
+  debugger;
+  descs = results.filter( el => { return el[0].EditorialReviews != undefined })
+  descs = descs.map( el => { return el[0].EditorialReviews[0].EditorialReview[0].Content[0] })
+  if (descs.length < 1) {
+    console.log("No items have editorial reviews...")
+  }
+  // results[1][0].EditorialReviews[0].EditorialReview[0].Content[0]
+  descs = descs.map( (desc) => {
+    var hits = wordBank.reduce((total, element, index) => {
+      var hitsonword = 0;
+      var reg = new RegExp(element, "i");
+      hitsonword += desc.match(reg) ? 1 : 0;
+      return total + hitsonword; 
+    }, 0)
+    return hits
+  })
+
+  console.log(descs.join(" | "))
+})
+.catch(function(err){
 	// var err_obj = JSON.parse(err);
   // console.log(err_obj.Error[0].Message[0]);
   debugger;
    console.log(err);
 });
+
+// client.itemLookup({
+//   ItemId: "B005GNU60U"
+// }).then(function(results){
+//  debugger;
+//   console.log(results);
+// }).catch(function(err){
+//  // var err_obj = JSON.parse(err);
+//   // console.log(err_obj.Error[0].Message[0]);
+//   debugger;
+//    console.log(err);
+// });
 
 const wordBank = ['eco', 'sustainable', 'eco-friendly', 'sustainability', 'environment'];
 const amazonSelectors = ["#feature-bullets ul li span", "#productDescription p"];
