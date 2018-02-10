@@ -106,7 +106,6 @@ var generateQueryString = function (query, method, credentials) {
   var signature = encodeURIComponent(generateSignature('GET\n' + domain + '\n/onca/xml\n' + unsignedString, credentials.awsSecret)).replace(/\+/g, '%2B');
   var queryString = 'https://' + domain + '/onca/xml?' + unsignedString + '&Signature=' + signature;
   // debugger; // To look at the full query string and use it in PostMan
-
   return queryString;
 };
 
