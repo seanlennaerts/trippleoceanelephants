@@ -1,57 +1,67 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import { View } from 'react-native';
+import { Header, Button } from './src/components/common';
+import Search from './src/components/Search.js';
+import Camera from './src/components/Camera.js';
+// import { CameraButton } from './src/components/CameraButton.js';
 
 export default class App extends Component<{}> {
+  state = { camera: false };
+
+  renderContent() {
+    switch (this.state.camera) {
+      case false:
+        return (
+          <View>
+            <Header headerText="goecogecko"/>
+            <Search />
+          </View>
+        );
+      case true:
+        return (
+          <Camera />
+        );
+
+    }
+  }
+
+  switch() {
+    console.log(this.state.camera);
+    this.setState({ camera: !this.state.camera });
+  }
+
   render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
-    );
+    if (this.state.camera) {
+      return (<Camera switch={this.switch.bind(this)} />)
+    } else {
+      return (
+        <View style={styles.container}>
+          <View style={styles.content}>
+          {/* <Header headerText="goecogecko"/> */}
+          <Search />
+          </View>
+          <View style={styles.preview}>
+            <Button onPress={this.switch.bind(this)}>Switch</Button>
+          </View>
+      </View>)
+    }
   }
 }
 
-const styles = StyleSheet.create({
+
+const styles = {
   container: {
     flex: 1,
-    justifyContent: 'center',
+    flexDirection: 'column',
+  },
+  content: {
+    flex: 4,
+    flexDirection: 'column'
+  },
+  preview: {
+    flex: 1,
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+
+  }
+}

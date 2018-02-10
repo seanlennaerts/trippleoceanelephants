@@ -1,2 +1,3 @@
-backend/node_modules*
 backend/aws_creds.json
+.DS_Store
+backend/node_modules*
